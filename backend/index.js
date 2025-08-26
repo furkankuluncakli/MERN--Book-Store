@@ -16,10 +16,6 @@ app.use(
   })
 );
 
-app.get("/", (req, res) => {
-  return res.status(200).send("AMUNAGOYUM");
-});
-
 app.use("/books", booksRoute);
 
 mongoose
