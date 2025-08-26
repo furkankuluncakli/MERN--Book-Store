@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import BackButton from "../components/BackButton";
 import Spinner from "../components/Spinner";
 import { useSnackbar } from "notistack";
+import API_URL from "../config/api";
 
 function EditBook() {
   const [title, setTitle] = useState("");
@@ -19,7 +20,7 @@ function EditBook() {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:5555/books/${id}`)
+      .get(`${API_URL}/books/${id}`)
       .then((res) => {
         setTitle(res.data.title);
         setAuthor(res.data.author);
@@ -43,7 +44,7 @@ function EditBook() {
       publishYear: Number(publishYear),
     };
     axios
-      .put(`http://localhost:5555/books/${id}`, data)
+      .put(`${API_URL}/books/${id}`, data)
       .then((response) => {
         setLoading(false);
         navigate("/");
