@@ -3,10 +3,13 @@ import BackButton from "../components/BackButton";
 import Spinner from "../components/Spinner";
 import axios from "axios";
 import { useState } from "react";
+import { useSnackbar } from "notistack";
+
 
 function DeleteBook() {
   const [loading, setLoading] = useState(false);
 
+  const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -17,10 +20,12 @@ function DeleteBook() {
       .then((res) => {
         setLoading(false);
         navigate("/");
+        enqueueSnackbar("Book deleted successfully", { variant: "success" });
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
+        enqueueSnackbar("An error happened. Please try again", { variant: "error" });
       });
   };
   return (

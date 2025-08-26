@@ -7,10 +7,13 @@ import { useEffect, useState } from "react";
 import BooksTable from "../components/home/BooksTable";
 import BooksCard from "../components/home/BooksCard";
 
+
 function Home() {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showType, setShowType] = useState("table");
+
+
 
   useEffect(() => {
     setLoading(true);
@@ -19,10 +22,12 @@ function Home() {
       .then((res) => {
         setBooks(res.data.data);
         setLoading(false);
+
       })
       .catch((error) => {
         console.log(error);
         setLoading(false);
+
       });
   }, []);
 

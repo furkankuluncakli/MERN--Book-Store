@@ -25,13 +25,13 @@ function BookSingleCard({ book }) {
       </div>
 
       <div className="flex justify-between items-center gap-x-2 mt-4 p-4">
-        <Link to={`/books/details/${book.id}`}>
+        <Link to={`/books/details/${book._id}`}>
           <BsInfoCircle className="text-2xl text-green-500 hover:text-green-700 transition-colors duration-200" />
         </Link>
-        <Link to={`/books/edit/${book.id}`}>
+        <Link to={`/books/edit/${book._id}`}>
           <BsPencil className="text-2xl text-blue-500 hover:text-blue-700 transition-colors duration-200" />
         </Link>
-        <Link to={`/books/delete/${book.id}`}>
+        <Link to={`/books/delete/${book._id}`}>
           <BsFillTrashFill className="text-2xl text-red-500 hover:text-red-700 transition-colors duration-200" />
         </Link>
       </div>

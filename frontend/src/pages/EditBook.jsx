@@ -3,14 +3,16 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import BackButton from "../components/BackButton";
 import Spinner from "../components/Spinner";
+import { useSnackbar } from "notistack";
 
 function EditBook() {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
-  const [publishYear, setPublishYear] = useState();
+  const [publishYear, setPublishYear] = useState("");
 
   const [loading, setLoading] = useState(false);
 
+  const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -22,12 +24,14 @@ function EditBook() {
         setTitle(res.data.title);
         setAuthor(res.data.author);
         setPublishYear(res.data.publishYear);
-
         setLoading(false);
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
+        enqueueSnackbar("An error happened. Please try again", {
+          variant: "error",
+        });
       });
   }, []);
 
@@ -36,17 +40,19 @@ function EditBook() {
     const data = {
       title,
       author,
-      publishYear,
+      publishYear: Number(publishYear),
     };
     axios
       .put(`http://localhost:5555/books/${id}`, data)
       .then((response) => {
         setLoading(false);
         navigate("/");
+        enqueueSnackbar("Book updated successfully", { variant: "success" });
       })
       .catch((error) => {
-        alert("An error happened. Please control fields");
-        console.log(error);
+        enqueueSnackbar("An error happened. Please control fields", {
+          variant: "error",
+        });
         setLoading(false);
       });
   };
